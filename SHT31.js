@@ -1,5 +1,6 @@
 'use strict';
 
+const os = require('os');
 const { SHT31 } = require('sht31-node')
 
 const sensor = new SHT31()
@@ -19,7 +20,7 @@ exports.read = () => {
         .then(data => {
             const record = {
                 time: (new Date()).toISOString(),
-                id: `${Number(sensor.address).toString(16)}`,
+                id: `${os.hostname()}-${Number(sensor.address).toString(16)}`,
                 sensor: SENSOR_NAME,
                 temperature: data.temperature,
                 humidity: data.humidity,

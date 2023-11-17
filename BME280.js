@@ -1,5 +1,6 @@
 'use strict';
 
+const os = require('os');
 const BME280 = require('bme280-sensor');
 
 const SENSOR_NAME = 'BME280';
@@ -21,7 +22,7 @@ exports.read = () => {
         .then(data => {
             const record = {
                 time: (new Date()).toISOString(),
-                id: `${Number(options.i2cAddress).toString(16)}`,
+                id: `${os.hostname()}-${Number(options.i2cAddress).toString(16)}`,
                 sensor: SENSOR_NAME,
                 temperature: data.temperature_C,
                 humidity: data.humidity,
