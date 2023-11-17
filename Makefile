@@ -14,6 +14,7 @@ setup-node:
 
 setup-i2c:
 	sudo apt-get install i2c-tools
+	sudo gpasswd -a telegraf i2c
 
 setup-telegraf:
 	wget -q https://repos.influxdata.com/influxdata-archive_compat.key
@@ -29,6 +30,7 @@ deploy:
 	sudo cp *.js /usr/local/bin/rpi-sensor-experiment-with-fluxdb
 	sudo cp package.json /usr/local/bin/rpi-sensor-experiment-with-fluxdb
 	sudo cp yarn.lock /usr/local/bin/rpi-sensor-experiment-with-fluxdb
+	sudo cp -r patches /usr/local/bin/rpi-sensor-experiment-with-fluxdb
 	cd /usr/local/bin/rpi-sensor-experiment-with-fluxdb && sudo yarn
 
 
