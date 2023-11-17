@@ -26,37 +26,45 @@ if (process.env.NatureRemo && (process.env.NatureRemo === 'on')) {
     sensors.push(NatureRemo);
 }
 
-const initialize = async (sensors) => {
-    for (const sensor of sensors) {
-        await sensor.initialize()
-            .catch(err => {
-                console.error(`{status: ${sensor.name()} initialization failed }`)
+const initialize = (sensors) => {
+    return Promise.allSettled(sensors.map((sensor) => { return sensor.initialize() }))
+        .then(results => {
+            const errors = [];
+            results.forEach((result, i) => {
+                if (result.status !== 'fulfilled') {
+                    errors.push({ status: `${sensors[i].name()} initialization failed ${result.reason}` });
+                }
             });
-    }
+            if (0 < errors.length) {
+                console.error(JSON.stringify(errors))
+            }
+        });
+
 };
 
-const read = async (sensors) => {
-    const ret = [];
-    for (const sensor of sensors) {
-        await sensor.read()
-            .then(records => {
-                ret.push(...records);
-            })
-    }
-    return ret;
+const read = (sensors) => {
+    return Promise.allSettled(sensors.map((sensor) => { return sensor.read() }))
+        .then(results => {
+            const records = [];
+            results.forEach((result, i) => {
+                if (result.status === 'fulfilled') {
+                    records.push(...result.value);
+                }
+            });
+
+            return records;
+        });
 };
 
 (async () => {
     await initialize(sensors);
 
-    // SCD4X は 5000[ms] 待たないと計測できない。
-    setTimeout(() => {
-        read(sensors)
-            .then(res => {
-                console.log(JSON.stringify(res))
-            })
-            .catch(err => {
-                console.error(`{status: read failed }`)
-            });
+    // SCD4X は計測するのに初期化から 5[s] 待つ必要がある。
+    setTimeout(async () => {
+        const records = await read(sensors)
+        records.forEach(record => {
+            console.log(record);
+        });
+        console.log(JSON.stringify(records))
     }, WAIT);
 })();
