@@ -1,6 +1,9 @@
 'use strict';
 
+const os = require('os');
 const BME280 = require('bme280-sensor');
+
+const SENSOR_NAME = 'BME280';
 
 const options = {
     i2cBusNo: 1,
@@ -8,7 +11,7 @@ const options = {
 };
 const sensor = new BME280(options);
 
-exports.name = () => 'BME280';
+exports.name = () => SENSOR_NAME;
 
 exports.initialize = () => {
     return sensor.init();
@@ -18,13 +21,12 @@ exports.read = () => {
     return sensor.readSensorData()
         .then(data => {
             const record = {
-                datetime: new Date(),
-                device: `${Number(options.i2cAddress).toString(16)}`,
-                values: {
-                    temperature: data.temperature_C,
-                    humidity: data.humidity,
-                    pressure: data.pressure_hPa
-                }
+                time: (new Date()).toISOString(),
+                id: `${os.hostname()}-${Number(options.i2cAddress).toString(16)}`,
+                sensor: SENSOR_NAME,
+                temperature: data.temperature_C,
+                humidity: data.humidity,
+                pressure: data.pressure_hPa,
             };
 
             return [record];

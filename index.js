@@ -2,6 +2,8 @@
 
 require('dotenv').config();
 
+const WAIT = 5000;  // 読み込み始めるまでの待ち時間 [ms]
+
 let sensors = [];
 if (process.env.BME280 && (process.env.BME280 === 'on')) {
     const BME280 = require('./BME280');
@@ -24,32 +26,42 @@ if (process.env.NatureRemo && (process.env.NatureRemo === 'on')) {
     sensors.push(NatureRemo);
 }
 
-console.log(`interval: ${process.env.INTERVAL} [ms]`);
-sensors.forEach(x => {
-    console.log(`${x.name()}: use`);
-})
-
-const initialize = async (sensors) => {
-    for (const sensor of sensors) {
-        await sensor.initialize()
-            .then(() => {
-                console.log(`${sensor.name()}: initialization succeeded`);
-            })
-            .catch(err => console.error(`${sensor.name()}: initialization failed: ${err} `));
-    }
-};
-
-const read = async (sensors) => {
-    for (const sensor of sensors) {
-        await sensor.read()
-            .then(records => {
-                console.log(`${sensor.name()}: read\n`, records, '\n');
-            })
-            .catch(err => {
-                console.log(`${sensor.name()}: read error ${err}`);
+const initialize = (sensors) => {
+    return Promise.allSettled(sensors.map((sensor) => { return sensor.initialize() }))
+        .then(results => {
+            const errors = [];
+            results.forEach((result, i) => {
+                if (result.status !== 'fulfilled') {
+                    errors.push({ status: `${sensors[i].name()} initialization failed ${result.reason}` });
+                }
             });
-    }
+            if (0 < errors.length) {
+                console.error(JSON.stringify(errors))
+            }
+        });
+
 };
 
-initialize(sensors);
-setInterval(() => { read(sensors) }, process.env.INTERVAL);
+const read = (sensors) => {
+    return Promise.allSettled(sensors.map((sensor) => { return sensor.read() }))
+        .then(results => {
+            const records = [];
+            results.forEach((result, i) => {
+                if (result.status === 'fulfilled') {
+                    records.push(...result.value);
+                }
+            });
+
+            return records;
+        });
+};
+
+(async () => {
+    await initialize(sensors);
+
+    // SCD4X は計測するのに初期化から 5[s] 待つ必要がある。
+    setTimeout(async () => {
+        const records = await read(sensors)
+        console.log(JSON.stringify(records))
+    }, WAIT);
+})();

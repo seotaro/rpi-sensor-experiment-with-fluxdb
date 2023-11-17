@@ -2,7 +2,9 @@
 
 const sensor = require('ds18b20-raspi');
 
-exports.name = () => 'DS18B20';
+const SENSOR_NAME = 'DS18B20';
+
+exports.name = () => SENSOR_NAME;
 
 exports.initialize = () => {
     return new Promise(function (resolve, reject) {
@@ -21,14 +23,15 @@ exports.read = () => {
         });
     })
         .then(res => {
-            const datetime = new Date();
+            const time = (new Date()).toISOString();
 
             const records = [];
             for (const device of res) {
                 const record = {
-                    datetime,
-                    device: `${os.hostname()}-ds18b20-${device.id}`,
-                    values: { temperature: device.t }
+                    time,
+                    id: device.id,
+                    sensor: SENSOR_NAME,
+                    temperature: device.t,
                 };
                 records.push(record);
             }
