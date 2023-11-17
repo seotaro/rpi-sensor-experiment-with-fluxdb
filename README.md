@@ -89,11 +89,12 @@ i2cdetect -y 1
   ## e.g. "KEY=value", "USERNAME=John Doe",
   ## "LD_LIBRARY_PATH=/opt/custom/lib64:/usr/local/libs"
   environment = [
-    "DS18B20=on"
+    "DS18B20=on",
+    "SCD4X=on"
   ]
 
   ## Timeout for each command to complete.
-  timeout = "10s"
+  timeout = "30s"
 
   ## measurement name suffix (for separating different commands)
   #name_suffix = "_mycollector"

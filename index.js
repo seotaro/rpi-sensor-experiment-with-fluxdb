@@ -62,9 +62,6 @@ const read = (sensors) => {
     // SCD4X は計測するのに初期化から 5[s] 待つ必要がある。
     setTimeout(async () => {
         const records = await read(sensors)
-        records.forEach(record => {
-            console.log(record);
-        });
         console.log(JSON.stringify(records))
     }, WAIT);
 })();
