@@ -24,32 +24,29 @@ if (process.env.NatureRemo && (process.env.NatureRemo === 'on')) {
     sensors.push(NatureRemo);
 }
 
-console.log(`interval: ${process.env.INTERVAL} [ms]`);
-sensors.forEach(x => {
-    console.log(`${x.name()}: use`);
-})
-
 const initialize = async (sensors) => {
     for (const sensor of sensors) {
         await sensor.initialize()
-            .then(() => {
-                console.log(`${sensor.name()}: initialization succeeded`);
-            })
-            .catch(err => console.error(`${sensor.name()}: initialization failed: ${err} `));
-    }
-};
-
-const read = async (sensors) => {
-    for (const sensor of sensors) {
-        await sensor.read()
-            .then(records => {
-                console.log(`${sensor.name()}: read\n`, records, '\n');
-            })
             .catch(err => {
-                console.log(`${sensor.name()}: read error ${err}`);
+                console.error(`{status: ${sensor.name()} initialization failed }`)
             });
     }
 };
 
-initialize(sensors);
-setInterval(() => { read(sensors) }, process.env.INTERVAL);
+const read = async (sensors) => {
+    const ret = [];
+    for (const sensor of sensors) {
+        await sensor.read()
+            .then(records => {
+                ret.push(...records);
+            })
+    }
+    return ret;
+};
+
+(async () => {
+    await initialize(sensors);
+    console.log(JSON.stringify(await read(sensors)));
+})();
+
+// console.log((new Date()).toISOString());

@@ -21,14 +21,15 @@ exports.read = () => {
         });
     })
         .then(res => {
-            const datetime = new Date();
+            const time = (new Date()).toISOString();
 
             const records = [];
             for (const device of res) {
                 const record = {
-                    datetime,
-                    device: `${os.hostname()}-ds18b20-${device.id}`,
-                    values: { temperature: device.t }
+                    time,
+                    id: device.id,
+                    sensor: 'ds18b20',
+                    temperature: device.t,
                 };
                 records.push(record);
             }
