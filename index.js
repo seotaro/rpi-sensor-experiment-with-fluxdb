@@ -48,5 +48,3 @@ const read = async (sensors) => {
     await initialize(sensors);
     console.log(JSON.stringify(await read(sensors)));
 })();
-
-// console.log((new Date()).toISOString());

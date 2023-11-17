@@ -12,7 +12,6 @@ yarn install
 
 |  項目  |  値  |  意味  |
 | ---- | ---- | ---- |
-|  INTERVAL  |  整数  |  取得間隔 [ms]  |
 |  BME280  |  on\|off  |  BME280 から取得する\|しない  |
 |  SHT31  |  on\|off  |  SHT31 から取得する\|しない  |
 |  DS18B20  |  on\|off  |  DS18B20 から取得する\|しない  |
@@ -23,12 +22,10 @@ yarn install
 .env 例）
 
 ```text
-INTERVAL=60000
-
 DS18B20=on
 SHT31=on
 BME280=on
-SCD4x=on
+SCD4X=on
 
 NatureRemo=on
 NatureRemoToken=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -63,3 +60,57 @@ i2cdetect -y 1
 - SCD4X
   - [data sheet](https://d2air1d4eqhwg2.cloudfront.net/media/files/262fda6e-3a57-4326-b93d-a9d627defdc4.pdf)
   - [Sensirion/raspberry-pi-i2c-scd4x](https://github.com/Sensirion/raspberry-pi-i2c-scd4x#connecting-the-sensor)
+
+
+## telegraf
+/etc/telegraf/telegraf.conf
+
+```conf
+[agent]
+  interval = "30s"
+  flush_interval = "30s"
+
+[[outputs.influxdb_v2]]
+  urls = ["http://{アドレス}:8086"]
+  token = "{token}"
+  organization = "{organization}"
+  bucket = "{bucket}"
+
+
+# Read metrics from one or more commands that can output to stdout
+[[inputs.exec]]
+  ## Commands array
+  commands = [
+    "node /usr/local/bin/rpi-sensor-experiment-with-fluxdb/index.js"
+  ]
+
+  ## Environment variables
+  ## Array of "key=value" pairs to pass as environment variables
+  ## e.g. "KEY=value", "USERNAME=John Doe",
+  ## "LD_LIBRARY_PATH=/opt/custom/lib64:/usr/local/libs"
+  environment = [
+    "DS18B20=on"
+  ]
+
+  ## Timeout for each command to complete.
+  timeout = "10s"
+
+  ## measurement name suffix (for separating different commands)
+  #name_suffix = "_mycollector"
+
+  ## Data format to consume.
+  ## Each data format has its own unique set of configuration options, read
+  ## more about them here:
+  ## https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md
+  data_format = "json"
+  json_time_key = "time"
+  json_time_format = "2006-01-02T15:04:05Z07:00"
+  tag_keys = ["id", "sensor"]
+
+```
+
+```bash
+sudo nano /etc/telegraf/telegraf.conf
+sudo systemctl restart telegraf.service
+sudo journalctl -u telegraf.service -f
+```
