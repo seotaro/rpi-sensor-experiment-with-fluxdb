@@ -90,7 +90,11 @@ i2cdetect -y 1
   ## "LD_LIBRARY_PATH=/opt/custom/lib64:/usr/local/libs"
   environment = [
     "DS18B20=on",
-    "SCD4X=on"
+    "SHT31=off",
+    "BME280=off",
+    "SCD4X=on",
+    "NatureRemo=on",
+    "NatureRemoToken={トークン}"
   ]
 
   ## Timeout for each command to complete.
