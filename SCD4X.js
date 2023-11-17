@@ -9,18 +9,17 @@ exports.initialize = () => {
     return scd4x.initialize();
 }
 
-exports.read = async () => {
+exports.read = () => {
     // インターバル 5[s]未満はエラーになることに注意
     return scd4x.readSensorData()
         .then(data => {
             const record = {
-                datetime: new Date(),
-                device: scd4x.serialNumber,
-                values: {
-                    co2: data.co2,
-                    temperature: data.temperature,
-                    humidity: data.humidity
-                }
+                time: (new Date()).toISOString(),
+                id: scd4x.serialNumber,
+                sensor: 'scd4x',
+                co2: data.co2,
+                temperature: data.temperature,
+                humidity: data.humidity,
             };
 
             return [record];

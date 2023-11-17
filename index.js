@@ -2,6 +2,8 @@
 
 require('dotenv').config();
 
+const WAIT = 5000;  // 読み込み始めるまでの待ち時間 [ms]
+
 let sensors = [];
 if (process.env.BME280 && (process.env.BME280 === 'on')) {
     const BME280 = require('./BME280');
@@ -46,5 +48,15 @@ const read = async (sensors) => {
 
 (async () => {
     await initialize(sensors);
-    console.log(JSON.stringify(await read(sensors)));
+
+    // SCD4X は 5000[ms] 待たないと計測できない。
+    setTimeout(() => {
+        read(sensors)
+            .then(res => {
+                console.log(JSON.stringify(res))
+            })
+            .catch(err => {
+                console.error(`{status: read failed }`)
+            });
+    }, WAIT);
 })();
