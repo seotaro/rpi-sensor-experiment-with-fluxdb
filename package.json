@@ -1,0 +1,16 @@
+{
+  "name": "rpi-sensor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "bme280-sensor": "^0.1.7",
+    "dotenv": "^10.0.0",
+    "ds18b20-raspi": "^0.3.6",
+    "i2c-bus": "^5.2.2",
+    "node-fetch": "^2.6.7",
+    "sht31-node": "^1.0.1"
+  },
+  "repository": "git@github.com:seotaro/rpi-sensor.git",
+  "author": "Taro Seo"
+}
