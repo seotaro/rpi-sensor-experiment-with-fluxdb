@@ -1,0 +1,13 @@
+diff --git a/node_modules/bme280-sensor/BME280.js b/node_modules/bme280-sensor/BME280.js
+index c633007..23026c2 100644
+--- a/node_modules/bme280-sensor/BME280.js
++++ b/node_modules/bme280-sensor/BME280.js
+@@ -71,7 +71,7 @@ class BME280 {
+           }
+ 
+           else {
+-            console.log(`Found BMx280 chip ID 0x${chipId.toString(16)} on bus i2c-${this.i2cBusNo}, address 0x${this.i2cAddress.toString(16)}`);
++            // console.log(`Found BMx280 chip ID 0x${chipId.toString(16)} on bus i2c-${this.i2cBusNo}, address 0x${this.i2cAddress.toString(16)}`);
+             this.loadCalibration((err) => {
+               if(err) {
+                 return reject(err);

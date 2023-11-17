@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "postinstall": "patch-package"
+  },
   "dependencies": {
     "bme280-sensor": "^0.1.7",
     "dotenv": "^10.0.0",
@@ -12,5 +15,8 @@
     "sht31-node": "^1.0.1"
   },
   "repository": "git@github.com:seotaro/rpi-sensor.git",
-  "author": "Taro Seo"
+  "author": "Taro Seo",
+  "devDependencies": {
+    "patch-package": "^8.0.0"
+  }
 }
