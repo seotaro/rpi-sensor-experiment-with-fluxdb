@@ -27,10 +27,6 @@ enable-1-wire:
 
 deploy:
 	sudo mkdir -p /usr/local/bin/rpi-sensor-experiment-with-fluxdb
-	sudo cp *.js /usr/local/bin/rpi-sensor-experiment-with-fluxdb
-	sudo cp package.json /usr/local/bin/rpi-sensor-experiment-with-fluxdb
-	sudo cp yarn.lock /usr/local/bin/rpi-sensor-experiment-with-fluxdb
+	sudo cp *.js  package.json yarn.lock /usr/local/bin/rpi-sensor-experiment-with-fluxdb
 	sudo cp -r patches /usr/local/bin/rpi-sensor-experiment-with-fluxdb
-	cd /usr/local/bin/rpi-sensor-experiment-with-fluxdb && sudo yarn
-
-
+	cd /usr/local/bin/rpi-sensor-experiment-with-fluxdb && sudo yarn && cd -
