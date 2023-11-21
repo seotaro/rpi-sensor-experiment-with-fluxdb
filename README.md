@@ -30,7 +30,7 @@ make deploy
 出力例）
 
 ```json
-[{"time":"2023-11-18T14:46:08.246Z","id":"rpi4b8g-77","sensor":"BME280","temperature":22.18,"humidity":37.22387239971508,"pressure":1005.4841717450701},{"time":"2023-11-18T14:46:08.245Z","id":"rpi4b8g-44","sensor":"SHT31","temperature":22.594033722438397,"humidity":43.30663004501412},{"time":"2023-11-18T14:46:12.308Z","id":"28-00000b1c9a3e","sensor":"DS18B20","temperature":22.5},{"time":"2023-11-18T14:46:12.308Z","id":"28-00000e8f1f2f","sensor":"DS18B20","temperature":22.562},{"time":"2023-11-18T14:46:08.250Z","id":"f903af073bb3","sensor":"SCD4X","co2":972,"temperature":26.76666259765625,"humidity":31.69708251953125},{"time":"2023-11-18T14:46:11.035Z","sensor":"NatureRemo","id":"b56aec0f-61c8-443b-82dd-e143f99214e9","temperature":20.3},{"time":"2023-11-18T14:46:11.036Z","sensor":"NatureRemo","id":"55263381-1f7c-4b90-9dc1-7a0f406cdd54","temperature":21.4,"humidity":49,"illumination":30,"movement":1},{"time":"2023-11-18T14:46:11.036Z","sensor":"NatureRemo","id":"e756d84a-7dc2-43d6-9c4a-d0cb63cce827","temperature":21.8}]
+[{"time":"2023-11-21T12:53:55.519Z","id":"rpi4b8g-77","sensor":"BME280","temperature":24.49,"humidity":35.92742318719938,"pressure":1021.6984834213315},{"time":"2023-11-21T12:53:55.517Z","id":"rpi4b8g-44","sensor":"SHT31","temperature":25.39253833829251,"humidity":41.13679713130389},{"time":"2023-11-21T12:53:59.619Z","id":"xx-xxxxxxxxxxxxxxxxxxxxxxxx","sensor":"DS18B20","temperature":25.312},{"time":"2023-11-21T12:53:59.619Z","id":"xx-xxxxxxxxxxxx","sensor":"DS18B20","temperature":25.375},{"time":"2023-11-21T12:53:55.537Z","id":"xxxxxxxxxxxx","sensor":"SCD4X","co2":965,"temperature":29.279403686523438,"humidity":30.2978515625}]
 ```
 
 ## /etc/telegraf/telegraf.conf
@@ -58,9 +58,7 @@ make deploy
     "DS18B20={on|off}",
     "SHT31={on|off}",
     "BME280={on|off}",
-    "SCD4X={on|off}",
-    "NatureRemo={on|off}",
-    "NatureRemoToken={トークン}"
+    "SCD4X={on|off}"
   ]
 
   timeout = "30s"
