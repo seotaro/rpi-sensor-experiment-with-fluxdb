@@ -21,10 +21,6 @@ if (process.env.SCD4X && (process.env.SCD4X === 'on')) {
     const SCD4X = require('./SCD4X');
     sensors.push(SCD4X);
 }
-if (process.env.NatureRemo && (process.env.NatureRemo === 'on')) {
-    const NatureRemo = require('./NatureRemo');
-    sensors.push(NatureRemo);
-}
 
 const initialize = (sensors) => {
     return Promise.allSettled(sensors.map((sensor) => { return sensor.initialize() }))
