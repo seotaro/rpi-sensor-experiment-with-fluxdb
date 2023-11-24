@@ -96,9 +96,6 @@ i2cdetect -y 1
   - [data sheet](https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf)
 - DS18B20
   - [data sheet](https://datasheets.maximintegrated.com/en/ds/DS18B20.pdf)
-- Nature Remo
-  - [NATURE](https://nature.global/)
-  - [Nature Remo Cloud API](https://developer.nature.global/)
 - SHT31
   - [data sheet](https://sensirion.com/media/documents/213E6A3B/61641DC3/Sensirion_Humidity_Sensors_SHT3x_Datasheet_digital.pdf)
 - SCD4X
