@@ -101,3 +101,5 @@ i2cdetect -y 1
 - SCD4X
   - [data sheet](https://d2air1d4eqhwg2.cloudfront.net/media/files/262fda6e-3a57-4326-b93d-a9d627defdc4.pdf)
   - [Sensirion/raspberry-pi-i2c-scd4x](https://github.com/Sensirion/raspberry-pi-i2c-scd4x#connecting-the-sensor)
+
+Nature Remo は https://github.com/seotaro/telegraf-natureremo
