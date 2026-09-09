@@ -6,7 +6,7 @@ const { Bme680 } = require('bme680-sensor');
 const SENSOR_NAME = 'BME688';
 
 const I2C_BUS_NO = 1;
-const I2C_ADDRESS = 0x76;  // BME688 のデフォルト。BME280 が 0x77 なので同じバスに並存できる。
+const I2C_ADDRESS = 0x76; // 0x76 or 0x77
 
 let sensor = null;
 
