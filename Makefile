@@ -1,4 +1,4 @@
-NODE_MAJOR:=18
+NODE_MAJOR:=24
 
 setup-node:
 	sudo apt-get update
