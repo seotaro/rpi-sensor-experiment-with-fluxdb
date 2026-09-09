@@ -91,6 +91,13 @@ bme280-sensor@^0.1.7:
   dependencies:
     i2c-bus "^5.1.0"
 
+bme680-sensor@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/bme680-sensor/-/bme680-sensor-1.1.0.tgz#20191a5630809a69daea8ae8fd5e2d925a7684b1"
+  integrity sha512-sKWRw6wRstgBqEczs4GqG2lw8wdRTXauu7wAZ2vw/Eko2SceSeFt0NNX4xohzoNqaD1nYXALabYmF5nKg/XWiA==
+  dependencies:
+    i2c-bus "^5.2.0"
+
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
@@ -402,7 +409,7 @@ hosted-git-info@^4.0.1:
   dependencies:
     lru-cache "^6.0.0"
 
-i2c-bus@^4.0.10, i2c-bus@^5.1.0, i2c-bus@^5.2.3:
+i2c-bus@^4.0.10, i2c-bus@^5.1.0, i2c-bus@^5.2.0, i2c-bus@^5.2.3:
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/i2c-bus/-/i2c-bus-5.2.3.tgz#a1350df43f0a2f94d84369c3fe55fbc47174a6ff"
   integrity sha512-kzFgU0OSIZlaeUUa+VK7L+kkxnj4feimCVQDOPrzj0cTaB+hNweTsO8/j7QvW2gRgWQ7ds5IpfFjpBrX+fMNng==

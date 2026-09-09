@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bme280-sensor": "^0.1.7",
+    "bme680-sensor": "1.1.0",
     "dotenv": "^10.0.0",
     "ds18b20-raspi": "^0.3.6",
     "i2c-bus": "^5.2.3",
