@@ -9,6 +9,10 @@ if (process.env.BME280 && (process.env.BME280 === 'on')) {
     const BME280 = require('./BME280');
     sensors.push(BME280);
 }
+if (process.env.BME688 && (process.env.BME688 === 'on')) {
+    const BME688 = require('./BME688');
+    sensors.push(BME688);
+}
 if (process.env.SHT31 && (process.env.SHT31 === 'on')) {
     const SHT31 = require('./SHT31');
     sensors.push(SHT31);
